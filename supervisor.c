@@ -125,7 +125,8 @@ static char *routines_listing;
 void *fun1(void *args) 
 { 
     int x = 1;
-    for(int i = 0; i < 500000000; i++)
+    //for(int i = 0; i < 500000000; i++)
+    for(int i = 0; i < 5000; i++)
         x *= 1.00001;
     printf("Fun1\n"); 
 }
@@ -133,7 +134,8 @@ void *fun1(void *args)
 void *fun2(void *args) 
 { 
     int x = 1;
-    for(int i = 0; i < 500000000; i++)
+    //for(int i = 0; i < 500000000; i++)
+    for(int i = 0; i < 500000; i++)
         x *= 1.00001;
     printf("Fun2\n"); 
 }
@@ -347,6 +349,7 @@ static int run_rta(int routine_index, int core_number)
             total_utilization += routines_list[i].utilization;
 
     if (total_utilization > 1.0) {
+        routines_list[routine_index].active_running_core[core_number] = 0;
         printf("ERROR: The set of tasks is not schedulable on core %d because "
                 "the total utilization is %.3f\n", 
                 core_number, total_utilization);
@@ -614,6 +617,7 @@ static void request_handler(int currSd)
             free(routines_listing);
         } else {
             // Try parsing the command and save the result in parsed_command.
+            // The command is of type: "start/stop routine_name core_number"
             if (0 == (pcr = parse_command(&parsed_command, command, 
                     string_length))) {
                 if (0 == strncmp(parsed_command.action, "stop", 4)) {
