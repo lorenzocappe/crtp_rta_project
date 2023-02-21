@@ -59,7 +59,7 @@
 // Static variables and MACRO definitions
 
 #define MAX_LENGTH_ROUTINE_NAME 31
-#define MAX_NUMBER_ROUTINES 99
+#define MAX_NUMBER_ROUTINES 98
 #define MAX_NUMBER_CORES 8
 #define DEFAULT_CORE_NUMBER 0
 #define BILLION 1000000000.0
